@@ -10,11 +10,21 @@ source "${plugin_dir}/lib/utils.bash"
 
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
-release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.tar.gz"
+if [ "darwin" = "$ASDF_INSTALL_VERSION" ];
+then
+  SKIP_EXTRACTION=true
+  EXTENSION=""
+else
+  EXTENSION=".tar.gz"
+fi
 
-# Download tar.gz file to the download directory
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION$EXTENSION"
+
+# Download release file to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 
+# Skip extraction if darwin
+if [ "$SKIP_EXTRACTION" = true ]; then exit 0; fi
 #  Extract contents of tar.gz file into the download directory
 tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
 
