@@ -45,7 +45,7 @@ download_release() {
     *) fail "OS not supported: $uname_s" ;;
   esac
 
-  url="$GH_REPO/releases/download/${version}/kube-linter-${os}${ext}"
+  url="$GH_REPO/releases/download/v${version}/kube-linter-${os}${ext}"
   url=$(tr -d '[:space:]' <<< "$url")
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
