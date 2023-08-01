@@ -40,12 +40,12 @@ download_release() {
   uname_s="$(uname -s)"
 
   case "$uname_s" in
-    Darwin) os="darwin" ;;
-    Linux) os="linux" ;;
+    Darwin) os="darwin" ext="" ;;
+    Linux) os="linux" ext=".tar.gz" ;;
     *) fail "OS not supported: $uname_s" ;;
   esac
 
-  url="$GH_REPO/releases/download/${version}/kube-linter-${os}.tar.gz"
+  url="$GH_REPO/releases/download/${version}/kube-linter-${os}${ext}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
