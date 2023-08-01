@@ -46,7 +46,7 @@ download_release() {
   esac
 
   url="$GH_REPO/releases/download/${version}/kube-linter-${os}${ext}"
-
+  url=$(tr -d '[:space:]' <<< "$url")
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
 }
